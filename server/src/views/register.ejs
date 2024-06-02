@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+  </head>
+  <style>
+    main {
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    form {
+      width: 300px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 20px;
+    }
+    button {
+      grid-column: span 2;
+    }
+  </style>
+  <script>
+    async function sendFormData(e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const name = document.getElementById("name").value;
+      const formData = {
+        email,
+        password,
+        name,
+      };
+      await fetch("http://localhost:4000/db/register", {
+        method: "POST",
+        body: JSON.stringify(formData),
+      });
+    }
+  </script>
+  <body>
+    <main>
+      <h1>Register</h1>
+      <form onsubmit="sendFormData(event)">
+        <label for="email">Name:</label>
+        <input type="text" id="name" name="name" required />
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+        <label for="email">Password:</label>
+        <input type="password" id="password" name="password" required />
+        <button type="submit">Submit</button>
+      </form>
+    </main>
+  </body>
+</html>

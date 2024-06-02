@@ -2,6 +2,8 @@ import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
+import authRouter from "./auth/index";
+import dbRouter from "./db/index";
 
 dotenv.config();
 const app: Express = express();
@@ -21,25 +23,8 @@ app.get("/", (req, res) => {
   res.render("login");
 });
 
-app.get("/auth/login", (req, res) => {
-  //todo
-  res.render("login");
-});
-
-app.get("/auth/consent", (req, res) => {
-  //todo
-  res.render("consent");
-});
-
-app.get("/auth/token", (req, res) => {
-  //todo
-  res.render("login");
-});
-
-app.get("/db/usercheck", (req, res) => {
-  //todo
-  res.render("login");
-});
+app.use("/auth", authRouter);
+app.use("/db", dbRouter);
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
