@@ -34,7 +34,7 @@
         password: password,
         name: name,
       };
-      // console.log("sending", body);
+
       await fetch("http://localhost:4000/db/register", {
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +48,6 @@
     <main>
       <h1>Register</h1>
       <form onsubmit="sendFormData(event)">
-        <!-- <form  action="/db/register" method="post"> -->
         <label for="email">Name:</label>
         <input type="text" id="name" name="name" required />
         <label for="email">Email:</label>
