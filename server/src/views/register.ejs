@@ -29,14 +29,18 @@
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
       const name = document.getElementById("name").value;
-      const formData = {
-        email,
-        password,
-        name,
+      const body = {
+        email: email,
+        password: password,
+        name: name,
       };
+      // console.log("sending", body);
       await fetch("http://localhost:4000/db/register", {
+        headers: {
+          "Content-Type": "application/json",
+        },
         method: "POST",
-        body: JSON.stringify(formData),
+        body: JSON.stringify(body),
       });
     }
   </script>
@@ -44,6 +48,7 @@
     <main>
       <h1>Register</h1>
       <form onsubmit="sendFormData(event)">
+        <!-- <form  action="/db/register" method="post"> -->
         <label for="email">Name:</label>
         <input type="text" id="name" name="name" required />
         <label for="email">Email:</label>

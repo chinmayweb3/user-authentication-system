@@ -2,8 +2,11 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/register", (req, res) => {
-  res.render("register");
+router.use(express.json());
+
+router.post("/register", (req, res) => {
+  console.log("reqest: ", req.body);
+  res.json({ received: req.body });
 });
 
 export default router;
