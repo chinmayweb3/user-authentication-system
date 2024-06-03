@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  m1:
+    image: mongo:latest
+    container_name: m1
+    ports:
+      - "27017:27017"
+    networks:
+      - mongo-net
+    command: mongod --replSet mset
+
+  m2:
+    image: mongo:latest
+    container_name: m2
+    ports:
+      - "27018:27017"
+    networks:
+      - mongo-net
+    command: mongod --replSet mset
+
+  m3:
+    image: mongo:latest
+    container_name: m3
+    ports:
+      - "27019:27017"
+    networks:
+      - mongo-net
+    command: mongod --replSet mset
+
+networks:
+  mongo-net:
+    driver: bridge
+##
+# run the script after docker compose
+# docker exec -it m1 mongosh
+# rs.initiate({_id:"mset",members:[{_id:0,host:"m1:27017"},{_id:1,host:"m2:27017"},{_id:2,host:"m3:27017"}]})
+# rs.status()
