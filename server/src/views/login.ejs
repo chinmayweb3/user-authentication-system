@@ -26,13 +26,15 @@
   <script>
     async function sendFormData(e) {
       e.preventDefault();
+      var baseUrl = "<%= process.env.baseUrl %>";
+
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
       const formData = {
         email,
         password,
       };
-      await fetch("http://localhost:4000/db/usercheck", {
+      await fetch(`${baseUrl}/db/usercheck`, {
         method: "POST",
         body: JSON.stringify(formData),
       });

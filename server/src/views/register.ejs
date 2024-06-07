@@ -26,6 +26,7 @@
   <script>
     async function sendFormData(e) {
       e.preventDefault();
+      var baseUrl = "<%= process.env.baseUrl %>";
       const loading = document
         .getElementById("submit")
         .getAttribute("data-loading"); //default: false
@@ -41,12 +42,13 @@
 
       const body = { email, password, name, username };
 
-      await fetch("http://localhost:4000/a/usercreate", {
+      const token = await fetch(`${baseUrl}/a/usercreate`, {
         headers: { "Content-Type": "application/json" },
         method: "POST",
         body: JSON.stringify(body),
       });
-      // localStorage.setItem("token",)
+      const json = await token.json();
+      localStorage.setItem("token", json.token);
     }
   </script>
   <body>
