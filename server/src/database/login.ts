@@ -1,29 +1,7 @@
-import { Request, Response } from "express";
-
 import bcrypt from "bcrypt";
 import { prismadb } from "../utils/prisma";
 import { IisUser } from "./usercreate";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-
-// export default async function (req: Request, res: Response) {
-//   try {
-//     const user = await prismadb.user.findFirst({
-//       where: { email: req.body.email },
-//     });
-//     if (!user || !user.password) throw { code: 404, msg: "User not found" };
-
-//     const com = bcrypt.compare(req.body.password, user.password);
-//     if (!com) throw { code: 401, msg: "username/password is wrong" };
-
-//     res.status(200).json(user);
-//   } catch (err: any) {
-//     let code = err.code || 405;
-//     let msg = err.msg || "not found";
-
-//     console.log("error db/login :", err);
-//     res.status(code).json({ msg });
-//   }
-// }
 
 type IUserFindReq = {
   readonly password: string;

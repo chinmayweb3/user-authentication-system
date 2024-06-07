@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { db } from "../database/db";
-import { generateToken } from "../utils/generateToken";
+import { generateToken } from "../utils/jsonwebtoken";
 
 export default async function (req: Request, res: Response) {
   try {
