@@ -29,7 +29,7 @@
     if (!token) window.location.href = "/auth/register";
 
     (async () => {
-      console.log("starting profile");
+      console.log("starting profile", token);
 
       const res = await fetch(`${baseUrl}/a/userfind`, {
         headers: { authorization: `Bearer ${token}` },

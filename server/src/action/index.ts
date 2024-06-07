@@ -5,6 +5,6 @@ import userFind from "./userfind";
 const router = express.Router();
 
 router.post("/a/usercreate", userCreate);
-router.post("/a/userfind", userFind);
+router.get("/a/userfind", userFind);
 
 export default router;
