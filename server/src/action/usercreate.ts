@@ -16,7 +16,7 @@ export default async function (req: Request, res: Response) {
     const fuser = await db.UserFind({ username, password });
     if (fuser.isError) throw { code: fuser.code, msg: fuser.msg };
 
-    // // todo -- generate jwt token
+    //generate jwt token
     const token = await generateToken({ username });
 
     res.status(201).json({ token });
