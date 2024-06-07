@@ -39,6 +39,6 @@ export default async function (req: Request, res: Response) {
       msg = "email already exist";
     }
 
-    res.status(code).json(msg);
+    res.status(code).json({ msg });
   }
 }
