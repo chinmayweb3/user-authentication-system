@@ -18,11 +18,6 @@ export default async function (req: Request, res: Response) {
 
     // // todo -- generate jwt token
     const token = await generateToken({ username });
-    // const tokenRes = await fetch(`${process.env.baseUrl}/auth/generatetoken`, {
-    //   headers,
-    //   method: "POST",
-    //   body: JSON.stringify({ username: req.body.username }),
-    // });
 
     res.status(201).json({ token });
   } catch (err: any) {
