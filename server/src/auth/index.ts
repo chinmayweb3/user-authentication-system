@@ -1,10 +1,12 @@
 import express from "express";
+import generateToken from "./generateToken";
 
 const router = express.Router();
 
 router.get("/auth/register", (req, res) => {
   res.render("register");
 });
+router.get("/auth/generatetoken", generateToken);
 
 router.get("/auth/consent", (req, res) => {
   //todo

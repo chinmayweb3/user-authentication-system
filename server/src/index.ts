@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import authRouter from "./auth/index";
-import dbRouter from "./db/index";
+// import dbRouter from "./db/db";
 import actionRouter from "./action/index";
 
 dotenv.config();
@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.use(authRouter);
-app.use(dbRouter);
+// app.use(dbRouter);
 app.use(actionRouter);
 
 app.listen(port, () => {

@@ -1,35 +1,34 @@
 import { Request, Response } from "express";
-import { IUserCreate } from "../db/usercreate";
+import { db } from "../database/db";
 
 export default async function (req: Request, res: Response) {
   try {
     const headers = { "Content-Type": "application/json" };
+    let { email, password, name, username } = req.body;
+    username = username.trim();
+
     //creating User
-    const cUserRes = await fetch(`${process.env.baseUrl}/db/usercreate`, {
-      headers,
-      method: "POST",
-      body: JSON.stringify(req.body),
-    });
-    const cUserJson = (await cUserRes.json()) as IUserCreate;
-    if (cUserRes.status != 201) throw { code: cUserRes.status, msg: cUserJson };
+    const user = await db.UserCreate({ email, password, name, username });
+    if (user.isError) throw { code: user.code, msg: user.msg };
 
     //user login confirmation
-    const lUserRes = await fetch(`${process.env.baseUrl}/db/login`, {
-      headers,
-      method: "POST",
-      body: JSON.stringify(req.body),
-    });
-    const lUserJson = await lUserRes.json();
-    if (lUserRes.status != 200) throw { code: lUserRes.status, msg: lUserJson };
+    const fuser = await db.UserFind({ username, password });
+    if (fuser.isError) throw { code: fuser.code, msg: fuser.msg };
 
-    // todo -- generate jwt token
+    // // todo -- generate jwt token
+    // const tokenRes = await fetch(`${process.env.baseUrl}/auth/generatetoken`, {
+    //   headers,
+    //   method: "POST",
+    //   body: JSON.stringify({ username: req.body.username }),
+    // });
 
-    res.status(201).json(cUserJson);
+    res.status(201).json(fuser);
   } catch (err: any) {
-    let code = err.code;
+    console.log("action/UserCreate :>> ", err);
+
+    let code = err.code || 405;
     let msg = err.msg || { msg: "not found" };
 
-    console.log("/db/UserCreate :", err);
-    res.status(code || 405).json(msg);
+    res.status(code).json(msg);
   }
 }
