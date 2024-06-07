@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { prismadb } from "../utils/prisma";
+import { db } from "../utils/prisma";
 import { Request, Response } from "express";
 
 export type IUserCreate = {
@@ -13,8 +13,10 @@ export type IUserCreate = {
 
 export default async function (req: Request, res: Response) {
   try {
+    console.log("inside");
+
     const hash = await bcrypt.hash(req.body.password, 10);
-    const resp = await prismadb.user.create({
+    const resp = await db.user.create({
       data: {
         username: req.body.username,
         name: req.body.name,
@@ -22,6 +24,8 @@ export default async function (req: Request, res: Response) {
         password: hash,
       },
     });
+
+    console.log("resp created :", resp);
 
     res.status(201).json({
       username: resp.username,

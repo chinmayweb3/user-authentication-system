@@ -4,7 +4,7 @@ import { IUserCreate } from "../db/usercreate";
 export default async function (req: Request, res: Response) {
   try {
     const headers = { "Content-Type": "application/json" };
-
+    //creating User
     const cUserRes = await fetch(`${process.env.baseUrl}/db/usercreate`, {
       headers,
       method: "POST",
@@ -14,7 +14,9 @@ export default async function (req: Request, res: Response) {
     if (cUserRes.status !== 201)
       throw { code: cUserRes.status, msg: cUserJson };
 
-    //todo -- user login confirmation
+    console.log("user Created :", cUserJson);
+
+    //user login confirmation
     const lUserRes = await fetch(`${process.env.baseUrl}/db/login`, {
       headers,
       method: "POST",
@@ -24,7 +26,7 @@ export default async function (req: Request, res: Response) {
     res.status(201).json(cUserJson);
   } catch (err: any) {
     let code = err.code;
-    let msg = err.msg || "not found";
+    let msg = err.msg || { msg: "not found" };
 
     res.status(code || 405).json(msg);
   }
