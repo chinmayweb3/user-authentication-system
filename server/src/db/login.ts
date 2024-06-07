@@ -16,6 +16,7 @@ export default async function (req: Request, res: Response) {
   } catch (err: any) {
     let code = err.code || 405;
     let msg = err.msg || "not found";
+
     console.log("error db/login :", err);
     res.status(code).json({ msg });
   }
