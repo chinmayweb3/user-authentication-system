@@ -3,6 +3,6 @@ import userCreate from "./usercreate";
 
 const router = express.Router();
 
-router.post("/db/usercreate", userCreate);
+router.post("/a/usercreate", userCreate);
 
 export default router;

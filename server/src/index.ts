@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import path from "path";
 import authRouter from "./auth/index";
 import dbRouter from "./db/index";
+import actionRouter from "./action/index";
 
 dotenv.config();
 const app: Express = express();
@@ -23,8 +24,9 @@ app.get("/", (req, res) => {
   res.render("login");
 });
 
-app.use("/auth", authRouter);
-app.use("/db", dbRouter);
+app.use(authRouter);
+app.use(dbRouter);
+app.use(actionRouter);
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);

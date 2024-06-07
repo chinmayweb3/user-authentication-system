@@ -2,21 +2,21 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/register", (req, res) => {
+router.get("/auth/register", (req, res) => {
   res.render("register");
 });
 
-router.get("/consent", (req, res) => {
+router.get("/auth/consent", (req, res) => {
   //todo
   res.render("consent");
 });
 
-router.get("/login", (req, res) => {
+router.get("/auth/login", (req, res) => {
   //todo
   res.render("login");
 });
 
-router.get("/token", (req, res) => {
+router.get("/auth/token", (req, res) => {
   //todo
   res.render("login");
 });
