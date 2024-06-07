@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { db } from "../database/db";
+import { generateToken } from "../utils/generateToken";
 
 export default async function (req: Request, res: Response) {
   try {
@@ -16,19 +17,20 @@ export default async function (req: Request, res: Response) {
     if (fuser.isError) throw { code: fuser.code, msg: fuser.msg };
 
     // // todo -- generate jwt token
+    const token = await generateToken({ username });
     // const tokenRes = await fetch(`${process.env.baseUrl}/auth/generatetoken`, {
     //   headers,
     //   method: "POST",
     //   body: JSON.stringify({ username: req.body.username }),
     // });
 
-    res.status(201).json(fuser);
+    res.status(201).json({ token });
   } catch (err: any) {
     console.log("action/UserCreate :>> ", err);
 
     let code = err.code || 405;
     let msg = err.msg || { msg: "not found" };
 
-    res.status(code).json(msg);
+    res.status(code).json({ msg });
   }
 }
