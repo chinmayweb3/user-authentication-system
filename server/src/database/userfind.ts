@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { prismadb } from "../utils/prisma";
 import { IisUser } from "./usercreate";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { prismaError } from "../utils/prismaerror";
 
 type IUserFindReq = {
   readonly password: string;
@@ -21,14 +21,11 @@ export const UserFind = async (body: IUserFindReq): Promise<IisUser> => {
     return { isError: false, ...user };
   } catch (err: any) {
     console.log("db/login :>> ", err);
+
     let msg = err?.msg || "not Found";
     let code = err?.code || 405;
 
-    if (err instanceof PrismaClientKnownRequestError) {
-      if (err.code == "P2002") (code = 409), (msg = "email already exist");
-      if (err.code == "P2010")
-        (code = 405), (msg = "database uri String not connected");
-    }
+    [code, msg] = prismaError(code, msg, err);
 
     return { isError: true, code, msg };
   }

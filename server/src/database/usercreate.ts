@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { prismadb } from "../utils/prisma";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { prismaError } from "../utils/prismaerror";
 
 export type IUser = {
   username: string;
@@ -41,14 +41,9 @@ export const UserCreate = async (body: IUserCreateReq): Promise<IisUser> => {
   } catch (err: any) {
     console.log("db/Usercreate :>> ", err);
 
-    let msg = err.message || "not Found";
+    let msg = err?.message || "not Found";
     let code = 405;
-
-    if (err instanceof PrismaClientKnownRequestError) {
-      if (err.code == "P2002") (code = 409), (msg = "Username already exist");
-      if (err.code == "P2010")
-        (code = 405), (msg = "database uri not connected");
-    }
+    [code, msg] = prismaError(code, msg, err);
 
     return { isError: true, code, msg };
   }
