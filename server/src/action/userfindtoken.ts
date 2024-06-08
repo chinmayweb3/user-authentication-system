@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { authorizationToken } from "../utils/jsonwebtoken";
-import { db } from "../database/db";
 import { prismadb } from "../utils/prisma";
 
 export default async function (req: Request, res: Response) {
