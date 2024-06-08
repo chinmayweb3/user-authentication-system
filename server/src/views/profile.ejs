@@ -29,14 +29,15 @@
     if (!token) window.location.href = "/auth/register";
 
     (async () => {
-      console.log("starting profile", token);
-
       const res = await fetch(`${baseUrl}/a/userfind`, {
         headers: { authorization: `Bearer ${token}` },
       });
-
+      if (res.status != 200) {
+        localStorage.removeItem("token");
+        window.location.href = "/auth/register";
+        return;
+      }
       const json = await res.json();
-
       document.getElementById("email").value = json?.email || "not found";
     })();
   </script>
