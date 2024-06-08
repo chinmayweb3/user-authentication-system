@@ -1,12 +1,11 @@
-import express, { Express, Request, Response } from "express";
+dotenv.config();
+import express, { Express } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import authRouter from "./auth/index";
-// import dbRouter from "./db/db";
 import actionRouter from "./action/index";
 
-dotenv.config();
 const app: Express = express();
 const port = process.env.PORT || 4000;
 
@@ -18,14 +17,9 @@ app.set("views", path.join(__dirname, "views"));
 // Setting the view engine
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
-  console.log("starting");
-  // res.json({ message: "This is a starting message" });
-  res.render("login");
-});
+app.get("/", (_, res) => res.redirect("/auth/register"));
 
 app.use(authRouter);
-// app.use(dbRouter);
 app.use(actionRouter);
 
 app.listen(port, () => {
