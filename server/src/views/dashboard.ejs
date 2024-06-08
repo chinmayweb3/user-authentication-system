@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+  </head>
+  <style>
+    main {
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+  </style>
+  <script defer>
+    const baseUrl = "<%= process.env.baseUrl %>";
+    const token = localStorage.getItem("token");
+    if (!token) window.location.href = "/auth/login";
+
+    (async () => {
+      const res = await fetch(`${baseUrl}/a/userfind`, {
+        headers: { authorization: `Bearer ${token}` },
+      });
+      if (res.status != 200) {
+        localStorage.removeItem("token");
+        window.location.href = "/auth/login";
+        return;
+      }
+      const json = await res.json();
+
+      document.getElementById("givenUsername").innerText = json.username;
+    })();
+  </script>
+  <body>
+    <main>
+      <h4>Username: <span id="givenUsername"></span></h4>
+      <p>sdf</p>
+      <button>Add project</button>
+    </main>
+  </body>
+</html>

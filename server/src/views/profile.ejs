@@ -55,12 +55,19 @@
         <input type="email" id="email" name="email" required />
         <button
           onclick="(()=> {
-          console.log('logout cliked');
           localStorage.removeItem('token');
           window.location.href='/auth/login'
         })()"
         >
           Logout
+        </button>
+
+        <button
+          onclick="(() => {
+          window.location.href='/auth/dashboard'
+        })()"
+        >
+          Dashboard
         </button>
       </div>
     </main>

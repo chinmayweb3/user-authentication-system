@@ -6,6 +6,9 @@ const router = express.Router();
 router.get("/auth/register", (req, res) => {
   res.render("register");
 });
+router.get("/auth/dashboard", (req, res) => {
+  res.render("dashboard");
+});
 
 router.get("/auth/consent", (req, res) => {
   //todo
