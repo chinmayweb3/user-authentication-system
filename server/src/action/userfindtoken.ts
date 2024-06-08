@@ -10,7 +10,7 @@ export default async function (req: Request, res: Response) {
 
     const username = await authorizationToken(token);
     if (username.isError) throw { code: 401, msg: username.msg };
-    console.log("usernaem ", username);
+    console.log("username ", username);
 
     const user = await prismadb.user.findFirst({
       where: { username: username.decode?.username },

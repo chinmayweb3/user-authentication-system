@@ -1,4 +1,4 @@
-import { UserFind } from "./login";
+import { UserFind } from "./userfind";
 import { UserCreate } from "./usercreate";
 
 class Database {

@@ -13,7 +13,7 @@
       align-items: center;
       flex-direction: column;
     }
-    form {
+    div {
       width: 300px;
       display: grid;
       grid-template-columns: 1fr 2fr;
@@ -39,18 +39,30 @@
       }
       const json = await res.json();
       document.getElementById("email").value = json?.email || "not found";
+      document.getElementById("username").value = json?.username || "not found";
+      document.getElementById("name").value = json?.name || "not found";
     })();
   </script>
   <body>
     <main>
       <h1>Profile</h1>
-      <form>
+      <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required />
-        <label for="email">Password:</label>
-        <input type="password" id="password" name="password" required />
-        <button type="submit">Submit</button>
-      </form>
+        <button
+          onclick="(()=> {
+          console.log('logout cliked');
+          localStorage.removeItem('token');
+          window.location.href='/auth/login'
+        })()"
+        >
+          Logout
+        </button>
+      </div>
     </main>
   </body>
 </html>

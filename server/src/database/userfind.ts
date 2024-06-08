@@ -21,9 +21,8 @@ export const UserFind = async (body: IUserFindReq): Promise<IisUser> => {
     return { isError: false, ...user };
   } catch (err: any) {
     console.log("db/login :>> ", err);
-
-    let msg = err.message || "not Found";
-    let code = 405;
+    let msg = err?.msg || "not Found";
+    let code = err?.code || 405;
 
     if (err instanceof PrismaClientKnownRequestError) {
       if (err.code == "P2002") (code = 409), (msg = "email already exist");
@@ -31,6 +30,6 @@ export const UserFind = async (body: IUserFindReq): Promise<IisUser> => {
         (code = 405), (msg = "database uri String not connected");
     }
 
-    return { isError: true, code: 1100, msg: "sd" };
+    return { isError: true, code, msg };
   }
 };

@@ -23,33 +23,68 @@
       grid-column: span 2;
     }
   </style>
+  <script defer>
+    const baseUrl = "<%= process.env.baseUrl %>";
+    const token = localStorage.getItem("token");
+    if (token) {
+      (async () => {
+        const res = await fetch(`${baseUrl}/a/userfind`, {
+          headers: { authorization: `Bearer ${token}` },
+        });
+        if (res.status == 200) {
+          window.location.href = "/auth/profile";
+          return;
+        }
+        localStorage.removeItem("token");
+      })();
+    }
+  </script>
   <script>
     async function sendFormData(e) {
       e.preventDefault();
       const baseUrl = "<%= process.env.baseUrl %>";
 
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      const formData = {
-        email,
-        password,
-      };
-      await fetch(`${baseUrl}/db/usercheck`, {
+      const username = e.target.username.value;
+      const password = e.target.password.value;
+      const formData = { username, password };
+
+      console.log("clicked ", formData);
+
+      const resp = await fetch(`${baseUrl}/a/userlogin`, {
+        headers: { "Content-Type": "application/json" },
         method: "POST",
         body: JSON.stringify(formData),
       });
+      if (resp.status == 200) {
+        const json = await resp.json();
+        console.log("inside ", json, localStorage.getItem("token"));
+        localStorage.setItem("token", json.token);
+        console.log("inside ", json, localStorage.getItem("token"));
+        window.location.href = "/auth/profile";
+        return;
+      }
+      document.getElementById("error").innerText =
+        "username/password is incorrect";
     }
   </script>
   <body>
     <main>
       <h1>Login</h1>
       <form onsubmit="sendFormData(event)">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required />
-        <label for="email">Password:</label>
+        <label for="username">Username:</label>
+        <input type="username" id="username" name="username" required />
+        <label for="password">Password:</label>
         <input type="password" id="password" name="password" required />
         <button type="submit">Submit</button>
       </form>
+      <p id="error"></p>
+      <button
+        onclick="(() => {
+        window.location.href='/auth/register'
+      })()"
+      >
+        register
+      </button>
     </main>
   </body>
 </html>
