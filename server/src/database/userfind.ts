@@ -15,7 +15,7 @@ export const UserFind = async (body: IUserFindReq): Promise<IisUser> => {
     });
     if (!user) throw { code: 404, msg: "User not found" };
 
-    const com = bcrypt.compare(body.password, user.password);
+    const com = await bcrypt.compare(body.password, user.password);
     if (!com) throw { code: 401, msg: "username/password is wrong" };
 
     return { isError: false, ...user };
