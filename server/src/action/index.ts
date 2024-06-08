@@ -5,8 +5,8 @@ import userlogin from "./userlogin";
 
 const router = express.Router();
 
-router.post("/a/usercreate", userCreate);
 router.get("/a/userfind", userFind);
+router.post("/a/usercreate", userCreate);
 router.post("/a/userlogin", userlogin);
 
 export default router;

@@ -12,6 +12,8 @@ export default async function (req: Request, res: Response) {
     const user = await db.UserCreate({ email, password, name, username });
     if (user.isError) throw { code: user.code, msg: user.msg };
 
+    console.log("go down");
+
     //user login confirmation
     const fuser = await db.UserFind({ username, password });
     if (fuser.isError) throw { code: fuser.code, msg: fuser.msg };
@@ -23,8 +25,8 @@ export default async function (req: Request, res: Response) {
   } catch (err: any) {
     console.log("action/UserCreate :>> ", err);
 
-    let code = err.code || 405;
-    let msg = err.msg || { msg: "not found" };
+    let code = err?.code || 405;
+    let msg = err?.msg || "not found";
 
     res.status(code).json({ msg });
   }

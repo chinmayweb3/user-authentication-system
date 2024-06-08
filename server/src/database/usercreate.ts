@@ -45,7 +45,7 @@ export const UserCreate = async (body: IUserCreateReq): Promise<IisUser> => {
     let code = 405;
 
     if (err instanceof PrismaClientKnownRequestError) {
-      if (err.code == "P2002") (code = 409), (msg = "email already exist");
+      if (err.code == "P2002") (code = 409), (msg = "Username already exist");
       if (err.code == "P2010")
         (code = 405), (msg = "database uri String not connected");
     }

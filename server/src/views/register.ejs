@@ -27,29 +27,33 @@
     async function sendFormData(e) {
       e.preventDefault();
       const baseUrl = "<%= process.env.baseUrl %>";
-      const loading = document
-        .getElementById("submit")
-        .getAttribute("data-loading"); //default: false
-      if (+loading) return;
-      document.getElementById("submit").setAttribute("data-loading", "1");
-      document.getElementById("submit").style.cursor = "no-drop";
-      document.getElementById("submit").innerHTML = "Loading...";
 
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      const name = document.getElementById("name").value;
-      const username = document.getElementById("username").value;
+      if (+e.target.submit.getAttribute("data-loading")) return;
+      e.target.submit.innerHTML = "Loading...";
+      e.target.submit.setAttribute("data-loading", "1");
+
+      const email = e.target.email.value,
+        username = e.target.username.value,
+        name = e.target.name.value,
+        password = e.target.password.value;
 
       const body = { email, password, name, username };
 
-      const token = await fetch(`${baseUrl}/a/usercreate`, {
+      const resp = await fetch(`${baseUrl}/a/usercreate`, {
         headers: { "Content-Type": "application/json" },
         method: "POST",
         body: JSON.stringify(body),
       });
-      const json = await token.json();
-      localStorage.setItem("token", json.token);
-      window.location.href = "/auth/profile";
+      const json = await resp.json();
+      if (resp.status == 201) {
+        localStorage.setItem("token", json.token);
+        window.location.href = "/auth/profile";
+      } else {
+        document.getElementById("error").innerText =
+          json?.msg || "username taken";
+      }
+      e.target.submit.setAttribute("data-loading", "0");
+      e.target.submit.innerHTML = "submit";
     }
   </script>
   <body>
@@ -57,21 +61,19 @@
       <h1>Register</h1>
       <form onsubmit="sendFormData(event)">
         <label for="email">Name:</label>
-        <input type="text" id="name" name="name" />
+        <input type="text" id="name" name="name" required />
         <label for="username">UserName:</label>
-        <input type="text" id="username" name="username" />
+        <input type="text" id="username" name="username" required />
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" />
+        <input type="email" id="email" name="email" required />
         <label for="email">Password:</label>
-        <input type="password" id="password" name="password" />
+        <input type="password" id="password" name="password" required />
         <button id="submit" data-loading="0" type="submit">Submit</button>
       </form>
+      <p id="error"></p>
       <button
-        style="margin-top: 30px"
-        onclick="(() => {
-        console.log('clicked');
-        window.location.href='/auth/login'
-      })()"
+        onclick="(() => { console.log('clicked');
+        window.location.href='/auth/login' })()"
       >
         Login
       </button>
