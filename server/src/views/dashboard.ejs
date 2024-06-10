@@ -17,36 +17,34 @@
   <script>
     var baseUrl = "<%= process.env.baseUrl %>";
   </script>
-  <script defer>
-    const token = localStorage.getItem("token");
-    if (!token) window.location.href = "/auth/login";
-
-    (async () => {
-      const res = await fetch(`${baseUrl}/a/userfind`, {
-        headers: { authorization: `Bearer ${token}` },
-      });
-      if (res.status != 200) {
-        localStorage.removeItem("token");
-        window.location.href = "/auth/login";
-        return;
-      }
-      const json = await res.json();
-
-      document.getElementById("givenUsername").innerText = json.username;
-    })();
-  </script>
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.slim.js"
+    integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc="
+    crossorigin="anonymous"
+  ></script>
   <body>
     <main>
       <h4>Username: <span id="givenUsername"></span></h4>
       <div id="div-add"></div>
       <button
         onclick="(() => {
+          console.log('adding');
+const c =` 
+        <form onsubmit='sendFormData(event)'>
+          <label for='name'>Project Name:</label>
+          <input type='text' id='name' name='name' required />
+          <label for='web'>Website Name:</label>
+          <input type='text' id='web' name='web' required />
+          <button id='submit' data-loading='0' type='submit'>Submit</button>
+      </form>
+`;
+  document.getElementById('div-add').insertAdjacentHTML('afterend',c);
 
       })()"
       >
         Add project
       </button>
     </main>
-    <script src="/dashboard.js"></script>
+    <script defer src="/dashboard.js"></script>
   </body>
 </html>
