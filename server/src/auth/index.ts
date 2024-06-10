@@ -6,7 +6,7 @@ router.get("/auth/register", (req, res) => {
   res.render("register");
 });
 router.get("/auth/dashboard", (req, res) => {
-  res.render("dashboard");
+  res.render("dashboard", { posts: [{ id: 0, name: "channel" }] });
 });
 
 router.get("/auth/consent", (req, res) => {

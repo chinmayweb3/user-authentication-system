@@ -14,8 +14,10 @@
       flex-direction: column;
     }
   </style>
+  <script>
+    var baseUrl = "<%= process.env.baseUrl %>";
+  </script>
   <script defer>
-    const baseUrl = "<%= process.env.baseUrl %>";
     const token = localStorage.getItem("token");
     if (!token) window.location.href = "/auth/login";
 
@@ -36,8 +38,15 @@
   <body>
     <main>
       <h4>Username: <span id="givenUsername"></span></h4>
-      <p>sdf</p>
-      <button>Add project</button>
+      <div id="div-add"></div>
+      <button
+        onclick="(() => {
+
+      })()"
+      >
+        Add project
+      </button>
     </main>
+    <script src="/dashboard.js"></script>
   </body>
 </html>
