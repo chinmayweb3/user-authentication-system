@@ -12,8 +12,6 @@ export default async function (req: Request, res: Response) {
     const user = await db.UserCreate({ email, password, name, username });
     if (user.isError) throw { code: user.code, msg: user.msg };
 
-    console.log("go down");
-
     //user login confirmation
     const fuser = await db.UserFind({ username, password });
     if (fuser.isError) throw { code: fuser.code, msg: fuser.msg };
