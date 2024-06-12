@@ -13,6 +13,23 @@
       align-items: center;
       flex-direction: column;
     }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    #div-add {
+      display: none;
+      padding: 30px 20px;
+      border: 1px solid black;
+      margin-bottom: 20px;
+    }
+    #error {
+      display: none;
+      margin: 0;
+      text-align: center;
+      color: red;
+    }
   </style>
   <script>
     var baseUrl = "<%= process.env.baseUrl %>";
@@ -27,19 +44,29 @@
       <h4>Username: <span id="givenUsername"></span></h4>
       <div id="div-add"></div>
       <button
+        id="add-project"
+        data-allowed="1"
         onclick="(() => {
           console.log('adding');
-const c =` 
-        <form onsubmit='sendFormData(event)'>
-          <label for='name'>Project Name:</label>
-          <input type='text' id='name' name='name' required />
-          <label for='web'>Website Name:</label>
-          <input type='text' id='web' name='web' required />
-          <button id='submit' data-loading='0' type='submit'>Submit</button>
-      </form>
-`;
-  document.getElementById('div-add').insertAdjacentHTML('afterend',c);
-
+          $('#div-add').css('display','block')
+          const dataAllowed= $('#add-project').attr('data-allowed')
+          if(!+dataAllowed)return
+          $('#add-project').attr('data-allowed','0')
+          const c =` 
+                    <form onsubmit='sendFormData(event)'>
+                      <div>
+                        <label for='name'>Project Name:</label>
+                        <input type='text' id='name' name='name' placeHolder='google' required />
+                      </div>
+                      <div>
+                        <label for='web'>Website Name:</label>
+                        <input type='url' id='web' name='web' placeHolder='www.google.com' required />
+                      </div>
+                      <p id='error'></p>
+                      <button id='submit' type='submit'>Submit</button>
+                    </form>
+            `;
+          document.getElementById('div-add').insertAdjacentHTML('beforeend',c);
       })()"
       >
         Add project
