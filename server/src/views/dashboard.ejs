@@ -53,14 +53,14 @@
           if(!+dataAllowed)return
           $('#add-project').attr('data-allowed','0')
           const c =` 
-                    <form >
+                    <form onsubmit='sendFormData(event)' >
                       <div>
                         <label for='name'>Project Name:</label>
-                        <input type='text' id='name' name='name' placeHolder='google'  />
+                        <input type='text' id='name' name='name' placeHolder='google' required  />
                       </div>
                       <div>
                         <label  for='web'>Website Name:</label>
-                        <input type='url' id='web' name='web' placeHolder='www.google.com'  />
+                        <input type='url' id='web' name='web' placeHolder='www.google.com' required  />
                       </div>
                       <p id='error'></p>
                       <button  id='submit' type='submit'>Submit</button>
@@ -72,6 +72,6 @@
         Add project
       </button>
     </main>
-    <script defer src="/dashboardout.js"></script>
+    <script defer src="/dashboard.js"></script>
   </body>
 </html>

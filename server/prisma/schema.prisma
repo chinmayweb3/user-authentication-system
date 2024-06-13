@@ -20,7 +20,7 @@ model User {
   name     String
   username String    @unique
   createAt DateTime  @default(now()) @db.Timestamp
-  Project  Project[]
+  project  Project[]
 }
 
 model Project {

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { authorizationToken } from "../utils/jsonwebtoken";
 import { prismadb } from "../utils/prisma";
 import { prismaError } from "../utils/prismaerror";
+import { authorizationToken } from "../utils/jsonwebtoken";
 
 export default async function (req: Request, res: Response) {
   const auth = req.headers.authorization?.split(" ");
@@ -14,10 +14,11 @@ export default async function (req: Request, res: Response) {
 
     const user = await prismadb.user.findFirst({
       where: { username: username.decode?.username },
+      select: { username: true, project: true },
     });
     res.status(200).json(user);
   } catch (err: any) {
-    console.log("action/userfind :>> ", err);
+    console.log("action/userProjects :>> ", err);
     let code = err?.code || 405;
     let msg = err?.msg || "Not found";
 
