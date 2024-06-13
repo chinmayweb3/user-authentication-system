@@ -1,7 +1,5 @@
 async function sendFormData(e) {
   e.preventDefault();
-  // const baseUrl = "<%= process.env.baseUrl %>";
-
   if (+e.target.submit.getAttribute("data-loading")) return;
   e.target.submit.innerHTML = "Loading...";
   e.target.submit.setAttribute("data-loading", "1");
