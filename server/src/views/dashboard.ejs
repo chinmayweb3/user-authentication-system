@@ -41,7 +41,7 @@
   ></script>
   <body>
     <main>
-      <h4>Username: <span id="givenUsername"></span></h4>
+      <h4>Username: <span onclick="sendhello()" id="givenUsername"></span></h4>
       <div id="div-add"></div>
       <button
         id="add-project"
@@ -53,17 +53,17 @@
           if(!+dataAllowed)return
           $('#add-project').attr('data-allowed','0')
           const c =` 
-                    <form onsubmit='sendFormData(event)'>
+                    <form >
                       <div>
                         <label for='name'>Project Name:</label>
-                        <input type='text' id='name' name='name' placeHolder='google' required />
+                        <input type='text' id='name' name='name' placeHolder='google'  />
                       </div>
                       <div>
-                        <label for='web'>Website Name:</label>
-                        <input type='url' id='web' name='web' placeHolder='www.google.com' required />
+                        <label  for='web'>Website Name:</label>
+                        <input type='url' id='web' name='web' placeHolder='www.google.com'  />
                       </div>
                       <p id='error'></p>
-                      <button id='submit' type='submit'>Submit</button>
+                      <button  id='submit' type='submit'>Submit</button>
                     </form>
             `;
           document.getElementById('div-add').insertAdjacentHTML('beforeend',c);
@@ -72,6 +72,6 @@
         Add project
       </button>
     </main>
-    <script defer src="/dashboard.js"></script>
+    <script defer src="/dashboardout.js"></script>
   </body>
 </html>
