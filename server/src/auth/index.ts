@@ -1,6 +1,4 @@
 import express from "express";
-import { prismadb } from "../utils/prisma";
-import ejs from "ejs";
 
 const router = express.Router();
 
@@ -8,20 +6,7 @@ router.get("/auth/register", (req, res) => {
   res.render("register");
 });
 router.get("/auth/dashboard", async (req, res) => {
-  const fun = async (u: string, p: string) => {
-    console.log("loding");
-    const us = await prismadb.user.findFirst({
-      where: { username: u },
-    });
-    console.log("users ", us);
-
-    return us;
-  };
-
-  res.render("dashboard", {
-    // async: true,
-    checkUserProject: fun,
-  });
+  res.render("dashboard");
 });
 
 router.get("/auth/consent", (req, res) => {

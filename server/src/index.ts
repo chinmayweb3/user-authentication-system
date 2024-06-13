@@ -9,7 +9,7 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT || 4000;
 
-app.use(express.static(path.join(__dirname, "views")));
+app.use(express.static(path.join(__dirname, "script")));
 app.use(express.json());
 app.use(cors());
 // Setting the root path for views directory
