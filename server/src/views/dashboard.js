@@ -1,4 +1,6 @@
 // run script at html load
+// const prismadb = require("../database/db");
+// import { prismadb } from "../utils/prisma";
 
 const token = localStorage.getItem("token");
 if (!token) window.location.href = "/auth/login";
@@ -40,6 +42,7 @@ async function sendFormData(e) {
     // uri is incorrect throw an error on the screen
 
     //check if the project name has been used by the same username before (with prismadb)
+    // const user =prismadb.user.
     // if so throw an error on the screen
 
     //generate an random client id and secret id for the developer
