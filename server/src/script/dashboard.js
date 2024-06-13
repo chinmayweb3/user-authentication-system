@@ -1,4 +1,5 @@
 // run script at html load
+import generateClientSecretId from "../utils/createClientSecret.ts";
 
 const token = localStorage.getItem("token");
 console.log("calling dahsboard");
@@ -50,6 +51,10 @@ async function sendFormData(e) {
     if (uProJson.length) throw { code: 101, msg: "project name exists" };
 
     //generate an random client id and secret id for the developer
+    const clientId = generateClientSecretId(16);
+    const secretId = generateClientSecretId(32);
+    console.log("This si clientId ", clientId);
+    console.log("This si secretId ", secretId);
 
     //store the projectname,websitename,clientid,secretid,userid, into the db
     //
