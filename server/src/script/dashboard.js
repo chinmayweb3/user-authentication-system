@@ -1,5 +1,5 @@
 // run script at html load
-import generateClientSecretId from "../utils/createClientSecret.ts";
+import generateClientSecretId from "../utils/createClientSecret.js";
 
 const token = localStorage.getItem("token");
 console.log("calling dahsboard");
@@ -40,11 +40,13 @@ async function sendFormData(e) {
     pname = pname.replaceAll(" ", "-");
 
     //check if the project name has been used by the same username before (with prismadb)
-    const uProRes = await fetch(`${baseUrl}/a/userprojects`, {
+    const uProRes = await fetch(`${baseUrl}/a/projectadd`, {
       headers: {
         authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
+      method: "POST",
+      body: JSON.stringify({ wname, pname }),
     });
     const uProJson = await uProRes.json();
     // if so throw an error on the screen
@@ -66,3 +68,4 @@ async function sendFormData(e) {
     document.getElementById("error").style.display = "block";
   }
 }
+window.dashboardSendFromData = sendFormData;

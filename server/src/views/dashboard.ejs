@@ -53,7 +53,7 @@
           if(!+dataAllowed)return
           $('#add-project').attr('data-allowed','0')
           const c =` 
-                    <form onsubmit='sendFormData(event)' >
+                    <form onsubmit='dashboardSendFromData(event)' >
                       <div>
                         <label for='name'>Project Name:</label>
                         <input type='text' id='name' name='name' placeHolder='google' required  />

@@ -1,5 +1,5 @@
-import crypto from "crypto";
+import { randomBytes } from "crypto";
 
 export default function generateClientSecretId(num: number = 16): string {
-  return crypto.randomBytes(num).toString("hex");
+  return randomBytes(num).toString("hex");
 }
