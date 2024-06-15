@@ -18,6 +18,9 @@
       flex-direction: column;
       gap: 10px;
     }
+    button {
+      margin-bottom: 20px;
+    }
     #div-add,
     #show-project {
       padding: 30px 20px;
@@ -56,6 +59,16 @@
         onclick="dashboardAddProject(event)"
       >
         Add project
+      </button>
+
+      <button
+        id="add-project"
+        data-allowed="1"
+        onclick="(() => {
+          window.location.href  ='/auth/profile'
+        })()"
+      >
+        Profile
       </button>
     </main>
     <script defer src="/dashboard.js"></script>
