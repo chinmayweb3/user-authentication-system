@@ -33,7 +33,8 @@ export default async function (req: Request, res: Response) {
     });
     // if so throw an error on the screen
     if (!user) throw { code: 404, msg: "user not found" };
-    if (user.project.length) throw { code: 403, msg: "project name exists" };
+    if (user.project.some((i) => i.projectName == pname))
+      throw { code: 403, msg: "project name exists" };
 
     //generate an random client id and secret id for the developer
     const clientId = generateClientSecretId(16);

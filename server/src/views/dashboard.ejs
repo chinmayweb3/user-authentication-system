@@ -18,11 +18,17 @@
       flex-direction: column;
       gap: 10px;
     }
-    #div-add {
-      display: none;
+    #div-add,
+    #show-project {
       padding: 30px 20px;
       border: 1px solid black;
       margin-bottom: 20px;
+    }
+    #show-project {
+      margin-bottom: 20px;
+    }
+    #div-add {
+      display: none;
     }
     #error {
       display: none;
@@ -42,32 +48,12 @@
   <body>
     <main>
       <h4>Username: <span id="givenUsername"></span></h4>
+      <div id="show-project"></div>
       <div id="div-add"></div>
       <button
         id="add-project"
         data-allowed="1"
-        onclick="(() => {
-          console.log('adding');
-          $('#div-add').css('display','block')
-          const dataAllowed= $('#add-project').attr('data-allowed')
-          if(!+dataAllowed)return
-          $('#add-project').attr('data-allowed','0')
-          const c =` 
-                    <form onsubmit='dashboardSendFromData(event)' >
-                      <div>
-                        <label for='name'>Project Name:</label>
-                        <input type='text' id='name' name='name' placeHolder='google' required  />
-                      </div>
-                      <div>
-                        <label  for='web'>Website Name:</label>
-                        <input type='url' id='web' name='web' placeHolder='www.google.com' required  />
-                      </div>
-                      <p id='error'></p>
-                      <button  id='submit' type='submit'>Submit</button>
-                    </form>
-            `;
-          document.getElementById('div-add').insertAdjacentHTML('beforeend',c);
-      })()"
+        onclick="dashboardAddProject(event)"
       >
         Add project
       </button>

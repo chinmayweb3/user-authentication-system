@@ -1,5 +1,4 @@
 // run script at html load
-
 const token = localStorage.getItem("token");
 console.log("calling dahsboard");
 var user;
@@ -16,8 +15,46 @@ if (!token) window.location.href = "/auth/login";
   user = await res.json();
 
   document.getElementById("givenUsername").innerText = user.username;
+  showProject();
 })();
 // run script at html load
+
+async function showProject() {
+  console.log("show project triggered");
+  // document.getElementById("show-project").style.display = "block";
+  try {
+    const res = await fetch(`${baseUrl}/a/showprojects`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (res.status != 200) {
+      throw "";
+    }
+    const json = await res.json();
+
+    console.log("json ::>", json);
+
+    const html = json.data.project
+      .map((i, index) => {
+        return `<div style="display:flex, flex-direction:column" key=${i.id}>
+            <h4 style="margin:0" >${index + 1}. ${i.projectName}</h4>
+            <p style="margin:0"> website Name : ${i.websiteName}</p>
+            <p style="margin:0" >client Id : ${i.clientId}</p>
+            <p style="margin:0" >secret Id : ${i.secretId}</p>
+            <p></p>
+          </div>`;
+      })
+      .join(" ");
+    document.getElementById("show-project").innerHTML =
+      "<h2>project</h2>" + html;
+  } catch (er) {
+    console.log("cathc", er);
+    document.getElementById("show-project").innerText = "no Project FOund";
+  }
+}
 
 async function sendFormData(e) {
   e.preventDefault();
@@ -39,8 +76,7 @@ async function sendFormData(e) {
       throw { code: uProRes.status, msg: uProJson.msg };
 
     console.log("project created on frontend ", uProJson);
-
-    //
+    showProject();
     console.log("logingd ", $("#add-project").attr("data-allowed", "1"));
   } catch (er) {
     console.log("dashboard/sendformdta ->", er);
@@ -50,3 +86,28 @@ async function sendFormData(e) {
   }
 }
 window.dashboardSendFromData = sendFormData;
+
+async function addProject() {
+  console.log("add project clicked");
+  $("#div-add").css("display", "block");
+  const dataAllowed = $("#add-project").attr("data-allowed");
+  if (!+dataAllowed) return;
+  $("#add-project").attr("data-allowed", "0");
+  const c = ` 
+            <form onsubmit='dashboardSendFromData(event)' >
+              <div>
+                <label for='name'>Project Name:</label>
+                <input type='text' id='name' name='name' placeHolder='google' required  />
+              </div>
+              <div>
+                <label  for='web'>Website Name:</label>
+                <input type='url' id='web' name='web' placeHolder='www.google.com' required  />
+              </div>
+              <p id='error'></p>
+              <button  id='submit' type='submit'>Submit</button>
+            </form>
+    `;
+  document.getElementById("div-add").insertAdjacentHTML("beforeend", c);
+}
+
+window.dashboardAddProject = addProject;
