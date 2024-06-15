@@ -1,5 +1,4 @@
 // run script at html load
-import generateClientSecretId from "../utils/createClientSecret.js";
 
 const token = localStorage.getItem("token");
 console.log("calling dahsboard");
@@ -27,19 +26,6 @@ async function sendFormData(e) {
   let pname = e.target.name.value;
   let wname = e.target.web.value;
   try {
-    if (
-      pname.startsWith(" ") ||
-      pname.endsWith(" ") ||
-      wname.startsWith(" ") ||
-      wname.endsWith(" ")
-    ) {
-      throw { code: 101, msg: "no space allowed" };
-    }
-
-    // add slug to project name replace space with -
-    pname = pname.replaceAll(" ", "-");
-
-    //check if the project name has been used by the same username before (with prismadb)
     const uProRes = await fetch(`${baseUrl}/a/projectadd`, {
       headers: {
         authorization: `Bearer ${token}`,
@@ -49,16 +35,11 @@ async function sendFormData(e) {
       body: JSON.stringify({ wname, pname }),
     });
     const uProJson = await uProRes.json();
-    // if so throw an error on the screen
-    if (uProJson.length) throw { code: 101, msg: "project name exists" };
+    if (uProRes.status !== 201)
+      throw { code: uProRes.status, msg: uProJson.msg };
 
-    //generate an random client id and secret id for the developer
-    const clientId = generateClientSecretId(16);
-    const secretId = generateClientSecretId(32);
-    console.log("This si clientId ", clientId);
-    console.log("This si secretId ", secretId);
+    console.log("project created on frontend ", uProJson);
 
-    //store the projectname,websitename,clientid,secretid,userid, into the db
     //
     console.log("logingd ", $("#add-project").attr("data-allowed", "1"));
   } catch (er) {

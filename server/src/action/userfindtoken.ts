@@ -15,6 +15,7 @@ export default async function (req: Request, res: Response) {
     const user = await prismadb.user.findFirst({
       where: { username: username.decode?.username },
     });
+    if (!user) throw { code: 404, msg: "User not Found" };
     res.status(200).json(user);
   } catch (err: any) {
     console.log("action/userfind :>> ", err);
