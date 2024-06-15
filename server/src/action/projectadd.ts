@@ -50,22 +50,6 @@ export default async function (req: Request, res: Response) {
       },
     });
 
-    console.log("project created ", createProject);
-    console.log(
-      "check projects ",
-      await prismadb.user.findFirst({
-        where: { id: user.id },
-        select: { project: true },
-      })
-    );
-    console.log(
-      "check users ",
-      await prismadb.project.findFirst({
-        where: { userId: user.id },
-        select: { user: true },
-      })
-    );
-
     res.status(201).json({ data: createProject });
   } catch (err: any) {
     console.log("action/userProjects :>> ", err);
