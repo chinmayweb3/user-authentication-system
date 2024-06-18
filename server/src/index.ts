@@ -5,6 +5,7 @@ import path from "path";
 import authRouter from "./auth/index";
 import actionRouter from "./action/index";
 import dbRouter from "./database/index";
+import oAuthRouter from "./o/index";
 dotenv.config();
 
 const app: Express = express();
@@ -24,6 +25,7 @@ app.get("/", (_, res) => res.redirect("/auth/register"));
 app.use(authRouter);
 app.use(actionRouter);
 app.use(dbRouter);
+app.use(oAuthRouter);
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
