@@ -5,4 +5,5 @@ const AuthProvider = () => {
 };
 
 const constant = 100;
+
 export { AuthProvider, constant };
