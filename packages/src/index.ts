@@ -1,1 +1,2 @@
-export { constant, AuthProvider } from "./react/index";
+export const APIID = "sdlkfjsdlkfjkl";
+export { AuthProvider, constant } from "./react/index";

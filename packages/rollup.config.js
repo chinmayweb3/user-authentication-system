@@ -4,31 +4,63 @@ import commonjs from "@rollup/plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 
-export default {
-  input: "./src/index.ts",
-  output: [
-    {
-      file: "dist/index.cjs.js",
-      format: "cjs",
-      exports: "named",
-    },
-    {
-      file: "dist/index.esm.js",
+const plugins = [
+  resolve(),
+  commonjs(),
+  babel({
+    exclude: "node_modules/**",
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
+    babelHelpers: "bundled",
+  }),
+  terser(),
+];
+
+export default [
+  {
+    input: "./src/index.ts",
+    output: {
+      dir: "dist/esm",
       format: "esm",
+      preserveModules: true,
+      preserveModulesRoot: "src",
+      entryFileNames: "[name].esm.js",
     },
-  ],
-  plugins: [
-    resolve(),
-    commonjs(),
-    typescript({
-      tsconfig: "./tsconfig.json",
-    }),
-    babel({
-      exclude: "node_modules/**",
-      extensions: [".js", ".jsx", ".ts", ".tsx"],
-      babelHelpers: "bundled",
-    }),
-    terser(),
-  ],
-  external: ["react", "react-dom"],
-};
+
+    plugins: [
+      ...plugins,
+      typescript({
+        tsconfig: "./tsconfig.json",
+        declaration: true,
+        declarationDir: "dist/esm/types",
+        outDir: "dist/esm",
+        rootDir: "src",
+      }),
+    ],
+    external: ["react", "react-dom"],
+  },
+
+  // {
+  //   input: ["./src/index.ts"],
+  //   output: [
+  //     {
+  //       dir: "dist/cjs",
+  //       format: "cjs",
+  //       exports: "named",
+  //       preserveModules: true,
+  //       preserveModulesRoot: "src",
+  //       entryFileNames: "[name].cjs.js",
+  //     },
+  //   ],
+  //   plugins: [
+  //     ...plugins,
+  //     typescript({
+  //       tsconfig: "./tsconfig.json",
+  //       declaration: true,
+  //       declarationDir: "dist/cjs/types",
+  //       outDir: "dist/cjs",
+  //       rootDir: "src",
+  //     }),
+  //   ],
+  //   external: ["react", "react-dom"],
+  // },
+];
