@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { prismadb } from "../utils/prisma";
-import { IisUser } from "./usercreate";
+import type { IisUser } from "./usercreate";
 import { prismaError } from "../utils/prismaerror";
 
 type IUserFindReq = {
