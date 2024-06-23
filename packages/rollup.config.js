@@ -39,28 +39,28 @@ export default [
     external: ["react", "react-dom"],
   },
 
-  // {
-  //   input: ["./src/index.ts"],
-  //   output: [
-  //     {
-  //       dir: "dist/cjs",
-  //       format: "cjs",
-  //       exports: "named",
-  //       preserveModules: true,
-  //       preserveModulesRoot: "src",
-  //       entryFileNames: "[name].cjs.js",
-  //     },
-  //   ],
-  //   plugins: [
-  //     ...plugins,
-  //     typescript({
-  //       tsconfig: "./tsconfig.json",
-  //       declaration: true,
-  //       declarationDir: "dist/cjs/types",
-  //       outDir: "dist/cjs",
-  //       rootDir: "src",
-  //     }),
-  //   ],
-  //   external: ["react", "react-dom"],
-  // },
+  {
+    input: ["./src/index.ts"],
+    output: [
+      {
+        dir: "dist/cjs",
+        format: "cjs",
+        exports: "named",
+        preserveModules: true,
+        preserveModulesRoot: "src",
+        entryFileNames: "[name].cjs.js",
+      },
+    ],
+    plugins: [
+      ...plugins,
+      typescript({
+        tsconfig: "./tsconfig.json",
+        declaration: true,
+        declarationDir: "dist/cjs/types",
+        outDir: "dist/cjs",
+        rootDir: "src",
+      }),
+    ],
+    external: ["react", "react-dom"],
+  },
 ];
