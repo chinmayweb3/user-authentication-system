@@ -17,9 +17,9 @@ const plugins = [
 
 export default [
   {
-    input: "./src/index.ts",
+    input: ["./src/index.ts", "./src/react/index.ts"],
     output: {
-      dir: "dist/esm",
+      dir: "dist",
       format: "esm",
       preserveModules: true,
       preserveModulesRoot: "src",
@@ -31,8 +31,8 @@ export default [
       typescript({
         tsconfig: "./tsconfig.json",
         declaration: true,
-        declarationDir: "dist/esm/types",
-        outDir: "dist/esm",
+        declarationDir: "dist/types",
+        outDir: "dist",
         rootDir: "src",
       }),
     ],
@@ -40,10 +40,10 @@ export default [
   },
 
   {
-    input: ["./src/index.ts"],
+    input: ["./src/index.ts", "./src/react/index.ts"],
     output: [
       {
-        dir: "dist/cjs",
+        dir: "dist",
         format: "cjs",
         exports: "named",
         preserveModules: true,
@@ -56,8 +56,8 @@ export default [
       typescript({
         tsconfig: "./tsconfig.json",
         declaration: true,
-        declarationDir: "dist/cjs/types",
-        outDir: "dist/cjs",
+        declarationDir: "dist/types",
+        outDir: "dist",
         rootDir: "src",
       }),
     ],

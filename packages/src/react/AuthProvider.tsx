@@ -1,9 +1,11 @@
 import React from "react";
 
-const AuthProvider = () => {
-  return <div>AuthProvider</div>;
+type IAuthProviderProps = {
+  children: React.ReactNode;
 };
 
-const constant = 100;
+const AuthProvider = (props: IAuthProviderProps) => {
+  return <>{props.children}</>;
+};
 
-export { AuthProvider, constant };
+export { AuthProvider };

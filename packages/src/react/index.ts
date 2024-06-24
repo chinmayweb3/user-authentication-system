@@ -1,1 +1,1 @@
-export { constant, AuthProvider } from "./AuthProvider";
+export { AuthProvider } from "./AuthProvider";
