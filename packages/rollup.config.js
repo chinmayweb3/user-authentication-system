@@ -16,31 +16,31 @@ const plugins = [
 ];
 
 export default [
-  {
-    input: ["./src/index.ts", "./src/react/index.ts"],
-    output: {
-      dir: "dist",
-      format: "esm",
-      preserveModules: true,
-      preserveModulesRoot: "src",
-      entryFileNames: "[name].esm.js",
-    },
+  // {
+  //   input: ["src/index.ts", "src/react/index.ts", "src/utils/index.ts"],
+  //   output: {
+  //     dir: "dist",
+  //     format: "esm",
+  //     preserveModules: true,
+  //     preserveModulesRoot: "src",
+  //     entryFileNames: "[name].esm.js",
+  //   },
 
-    plugins: [
-      ...plugins,
-      typescript({
-        tsconfig: "./tsconfig.json",
-        declaration: true,
-        declarationDir: "dist/types",
-        outDir: "dist",
-        rootDir: "src",
-      }),
-    ],
-    external: ["react", "react-dom"],
-  },
+  //   plugins: [
+  //     ...plugins,
+  //     typescript({
+  //       tsconfig: "./tsconfig.json",
+  //       declaration: true,
+  //       declarationDir: "dist/types",
+  //       outDir: "dist",
+  //       rootDir: "src",
+  //     }),
+  //   ],
+  //   external: ["react", "react-dom"],
+  // },
 
   {
-    input: ["./src/index.ts", "./src/react/index.ts"],
+    input: ["src/index.ts", "src/react/index.ts", "src/utils/index.ts"],
     output: [
       {
         dir: "dist",
@@ -48,7 +48,7 @@ export default [
         exports: "named",
         preserveModules: true,
         preserveModulesRoot: "src",
-        entryFileNames: "[name].cjs.js",
+        // entryFileNames: "[name].cjs.js",
       },
     ],
     plugins: [

@@ -1,10 +1,9 @@
 {
-  "name": "@berserkauth/auth",
+  "name": "berserkauth",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/cjs/index.cjs.js",
-  "module": "dist/esm/index.esm.js",
-  "types": "types/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/types/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c && tsc"
@@ -31,8 +30,7 @@
     "typescript": "^5.5.2"
   },
   "peerDependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": ">=16.0.0"
   },
   "files": [
     "dist",
