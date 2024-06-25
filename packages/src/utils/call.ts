@@ -1,4 +1,5 @@
 import { ISessionContextValue } from "../react/AuthProvider";
+import { _baseUrl } from "./constant";
 
 class Call {
   private readonly clientId: string;
@@ -8,9 +9,8 @@ class Call {
   }
   async _getSession(): Promise<ISessionContextValue> {
     const token = localStorage.getItem("token");
-    if (!token) {
-    }
-    return fetch("http://localhost:4000/o/getuser", {
+
+    return fetch(`${_baseUrl}/o/getuser`, {
       headers: {
         Authorization: "Bearer " + token,
         "x-client-id": "",

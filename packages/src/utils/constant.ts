@@ -6,4 +6,6 @@ function isSessionContext() {
   }
 }
 
-export { isSessionContext };
+const _baseUrl = "http://localhost:4000";
+
+export { isSessionContext, _baseUrl };
