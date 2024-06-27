@@ -11,11 +11,11 @@ class Call {
     const token = localStorage.getItem("token");
 
     return fetch(`${_baseUrl}/o/getuser`, {
+      method: "GET",
       headers: {
         Authorization: "Bearer " + token,
         "x-client-id": "",
       },
-      method: "GET",
     })
       .then(async (data) => {
         const user = await data.json();
