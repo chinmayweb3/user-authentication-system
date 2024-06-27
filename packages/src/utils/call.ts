@@ -19,6 +19,7 @@ class Call {
     })
       .then(async (data) => {
         const user = await data.json();
+        if (!user) throw new Error("user not found");
         return { data: user, status: "authenticated" } as ISessionContextValue;
       })
       .catch(() => {
