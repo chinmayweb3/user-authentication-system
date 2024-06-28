@@ -14,7 +14,6 @@ class Call {
       method: "GET",
       headers: {
         Authorization: "Bearer " + token,
-        "x-client-id": "",
       },
     })
       .then(async (data) => {

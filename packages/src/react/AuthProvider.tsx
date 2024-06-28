@@ -43,7 +43,10 @@ const AuthProvider = (props: IAuthProviderProps) => {
   React.useEffect(() => {
     // Initialize session
     // todo call get method to server to check
-    props.auth.call._getSession();
+    (async () => {
+      const session = await props.auth.call._getSession();
+      setSession(session);
+    })();
   }, []);
 
   return (
