@@ -3,6 +3,9 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
 import typescript from "@rollup/plugin-typescript";
+import dts from "rollup-plugin-dts";
+
+import packagejson from "./package.json";
 
 const plugins = [
   resolve(),
@@ -39,28 +42,56 @@ export default [
   //   external: ["react", "react-dom"],
   // },
 
+  // {
+  //   input: "src/index.ts",
+  //   output: [
+  //     {
+  //       dir: "dist",
+  //       format: "cjs",
+  //       exports: "named",
+  //       preserveModules: true,
+  //       preserveModulesRoot: "src",
+  //       // entryFileNames: "[name].cjs.js",
+  //     },
+  //   ],
+  //   plugins: [
+  //     ...plugins,
+  //     typescript({
+  //       tsconfig: "./tsconfig.json",
+  //       declaration: true,
+  //       declarationDir: "dist/types",
+  //       outDir: "dist",
+  //       rootDir: "src",
+  //     }),
+  //   ],
+  //   external: ["react", "react-dom"],
+  // },
   {
-    input: ["src/index.ts", "src/react/index.ts", "src/utils/index.ts"],
+    input: "src/index.ts",
     output: [
       {
-        dir: "dist",
+        file: packagejson.main,
         format: "cjs",
-        exports: "named",
-        preserveModules: true,
-        preserveModulesRoot: "src",
-        // entryFileNames: "[name].cjs.js",
+        sourcemap: true,
+      },
+      {
+        file: packagejson.module,
+        format: "esm",
+        sourcemap: true,
       },
     ],
     plugins: [
       ...plugins,
       typescript({
         tsconfig: "./tsconfig.json",
-        declaration: true,
-        declarationDir: "dist/types",
-        outDir: "dist",
-        rootDir: "src",
       }),
     ],
     external: ["react", "react-dom"],
   },
+  // {
+  //   input: "dist/esm/types/index.d.ts",
+  //   output: [{ file: "dist/index.d.ts", format: "esm" }],
+  //   plugins: [dts()],
+  //   external: [/\.css$/],
+  // },
 ];
