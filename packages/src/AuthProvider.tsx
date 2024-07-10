@@ -9,13 +9,13 @@ type IAuthProvider = {
 
 const AuthProvider = (props: IAuthProvider) => {
   const [loading, setLoading] = React.useState<Boolean>(false);
-  let value = null;
 
-  React.useEffect(() => {
-    value = {
-      loading,
-    };
-  }, [loading]);
+  const value: any = React.useMemo(
+    () => ({
+      status: loading,
+    }),
+    [loading]
+  );
 
   return (
     <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
